@@ -1,0 +1,19 @@
+.data
+value1: .word 0x12345678           
+value2: .word 0x87654321           
+result: .word 0         
+
+.text
+main:
+    la t0, value1           
+    lw x5, 0(t0)            
+
+    la t1, value2           
+    lw x6, 0(t1)             
+
+    add x7, x5, x6          
+
+    la t2, result            
+    sw x7, 0(t2)           
+               
+    ecall

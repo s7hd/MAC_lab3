@@ -1,0 +1,36 @@
+.data
+value:  .word 0x12345678     
+result: .word 0               
+
+.text
+main:
+
+    la t0, value             
+    lw t1, 0(t0)             
+
+    # Extract each byte and reverse their positions
+    srli t2, t1, 24           
+    andi t2, t2, 0xFF         
+
+    srli t3, t1, 16           
+    andi t3, t3, 0xFF         
+    slli t3, t3, 8           
+
+    srli t4, t1, 8           
+    andi t4, t4, 0xFF         
+    slli t4, t4, 16           
+       
+    andi t5, t1, 0xFF 
+    slli t5, t5, 24          
+
+    #  Combine all reversed bytes
+    add t6, t2, t3             
+    add t6, t6, t4             
+    add t6, t6, t5             
+
+    # Store the reversed word back to memory
+    la x1, result            
+    sw t6, 0(x1)              
+
+    
+    ecall
